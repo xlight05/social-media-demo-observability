@@ -1,5 +1,7 @@
 version: '2.14.0'
-
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
 services:
   social-media:
     image: 'wso2/social-media:0.0.1'
@@ -62,3 +64,9 @@ services:
     ports:
       - 3000:3000
     network_mode: "host"
+    depends_on:
+      - prometheus
+    volumes: 
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+
